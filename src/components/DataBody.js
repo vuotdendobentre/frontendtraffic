@@ -16,7 +16,7 @@ class DataBody extends Component {
     componentDidMount(){
         
         if(this.props.role===0){
-            console.log('admin')
+          
             callApi(`fails`,'GET',null).then(res=>{
             
                 if(res && res.data){
@@ -27,14 +27,17 @@ class DataBody extends Component {
             
             })
         }else{
-            console.log(true)
+           
 
             
-            callApi(`fails/${this.props.username}`,'GET',null).then(res=>{
+            callApi(`fails/plate`,'POST',{
+                plate : this.props.plate
+            }).then(res=>{
             
                 if(res && res.data){
+                    
                     this.setState({
-                        data : JSON.parse(JSON.stringify(res.data))
+                        data : JSON.parse(JSON.stringify(res.data.data))
                     })
                 }
             
@@ -49,7 +52,7 @@ class DataBody extends Component {
         return ''
     }
     onShowImage = (event) =>{
-        console.log(event.target.name)
+        
         this.setState({
             index : parseInt(event.target.name),
             isShowImage: true
@@ -77,9 +80,14 @@ class DataBody extends Component {
         }
         return result;
     }
+    callBackFromChildBody = ()=>{
+        this.setState({
+            isShowImage : false
+        })
+    }
     render() {
-       
-        return this.state.isShowImage ? <PopupImage data={this.state.data}/> :   (
+      
+        return this.state.isShowImage ? <PopupImage onSelectComponent={this.callBackFromChildBody} data={this.state.data}/> :   (
             <div>
                 <table className="table">
                     <thead className="thead-light">
@@ -97,6 +105,10 @@ class DataBody extends Component {
                         {this.onRenderData()}
                     </tbody>
                 </table>
+                <div style={{textAlign:'center'}}>
+                        <a  className="float-center previous round">&#8249;</a>
+                        <a  className="float-center next round">&#8250;</a>
+                </div>
             </div>
             
         )
@@ -107,7 +119,8 @@ class DataBody extends Component {
 const mapStateToProps = state =>{
     return {
         username : state.username,
-        role : state.role
+        role : state.role,
+        plate : state.plate
     }
 }
 

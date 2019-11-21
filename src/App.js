@@ -8,7 +8,7 @@ class App extends Component {
   
  
   render() {
-      console.log(this.props.isAuthenticate)
+  
       return !this.props.isAuthenticate ? (
         <Router>
           <Route component={LoginPage} />

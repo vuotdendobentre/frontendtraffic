@@ -13,7 +13,7 @@ export default class Header extends Component {
                       </button>
                     </a>
                   </div>
-                  <div style={{display: 'flex'}} id="topRight">
+                  {/* <div style={{display: 'flex'}} id="topRight">
                     <div style={{display: 'inline'}} className="d-none d-md-block topEl">
                       <input list="camera" placeholder="Chose a camera" id="assignName" />
                       <datalist id="camera">
@@ -29,7 +29,7 @@ export default class Header extends Component {
                     <button  className="btn btn-outline-dark d-md-none topEl" type="button" data-toggle="collapse" data-target="#selector" aria-expanded="false" aria-controls="collapseExample">
                       <i className="fa fa-list" />
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </header>    

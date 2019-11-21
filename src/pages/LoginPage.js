@@ -31,7 +31,7 @@ class LoginPage extends Component {
                     this.setState({
                         isLogin : true
                     })
-                    this.props.onLogin(res.data.userame,res.data.role,res.data.plate)
+                    this.props.onLogin(res.data.userame,parseInt(res.data.role),res.data.plate)
                     this.refreshPage()
                 }
             }
