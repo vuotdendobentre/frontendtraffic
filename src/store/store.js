@@ -1,30 +1,32 @@
 let redux = require('redux');
 let isAuthenticate = '';
 let username  = '';
-let token ='';
-let user =localStorage.getItem('user');
+let role  = '';
+let plate = [];
+let user =localStorage.getItem('userTraffic');
 if(user!=null){
     isAuthenticate = JSON.parse(user).isAuthenticate ? JSON.parse(user).isAuthenticate : '';
     username  = JSON.parse(user).isAuthenticate ? JSON.parse(user).username : '';
-    token = JSON.parse(user).isAuthenticate ? JSON.parse(user).token : '';
+    role  = JSON.parse(user).isAuthenticate ? JSON.parse(user).role : '';
+    plate =JSON.parse(user).isAuthenticate ? JSON.parse(user).plate :  [];
 }
 let InitialState = { 
-    showFormRegister : false,
+  
     isAuthenticate ,
     username,
-    token
+    role,
+    plate
+  
 }
 
 const allReducer = (state=InitialState,action)=>{
     switch(action.type){
-        case  "SHOW_FORM_REGISTER" :
-            return {showFormRegister:!state.showFormRegister};
         case  "IS_AUTHENTICATE" :
-            localStorage.setItem('user',JSON.stringify({isAuthenticate : true,token:action.token,username :action.username}))
-            return {isAuthenticate:true,token:action.token,username:action.username};
+            localStorage.setItem('userTraffic',JSON.stringify({isAuthenticate:true,username :action.username,role:action.role,plate:action.plate}))
+            return {isAuthenticate:true,username :action.username,role:action.role,plate:action.plate};
         case "IS_LOGOUT" :
-            localStorage.setItem('user',JSON.stringify({isAuthenticate : false,username : '',token :''}))    
-            return {isAuthenticate:false,username : '',token : ''};
+            localStorage.setItem('userTraffic',JSON.stringify({isAuthenticate : false,username : '',role:'',plate:[]}))    
+            return {isAuthenticate : false,username : '',role:'',plate:[]};
         default : 
             return {...state};
 

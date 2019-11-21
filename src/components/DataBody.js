@@ -1,24 +1,45 @@
 import React, { Component } from 'react'
 import callApi from './../apicall/apiCaller'
-
-export default class DataBody extends Component {
+import { connect } from 'react-redux'
+import PopupImage from './PopupImage';
+class DataBody extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data : []
+            data : [],
+            index : '',
+            isShowImage : false
         }
     }
     
     //get api
     componentDidMount(){
-        callApi(`fails`,'GET',null).then(res=>{
-            if(res.data){
+        
+        if(this.props.role===0){
+            console.log('admin')
+            callApi(`fails`,'GET',null).then(res=>{
             
-                this.setState({
-                    data : JSON.parse(JSON.stringify(res.data))
-                })
-            }
-        })
+                if(res && res.data){
+                    this.setState({
+                        data : JSON.parse(JSON.stringify(res.data))
+                    })
+                }
+            
+            })
+        }else{
+            console.log(true)
+
+            
+            callApi(`fails/${this.props.username}`,'GET',null).then(res=>{
+            
+                if(res && res.data){
+                    this.setState({
+                        data : JSON.parse(JSON.stringify(res.data))
+                    })
+                }
+            
+            })
+        }
     }
 
     onDataValid = (data)=>{
@@ -27,21 +48,28 @@ export default class DataBody extends Component {
         }
         return ''
     }
+    onShowImage = (event) =>{
+        console.log(event.target.name)
+        this.setState({
+            index : parseInt(event.target.name),
+            isShowImage: true
+        })
+    }
     onRenderData (){
         let result =''
-        if(this.state.data){
+        if(this.state.data && this.state.data.length > 0){
             
              result = this.state.data.map((value,index)=>{
                 return (
                     <tr key={index+1}>
-                            <th scope="row">{index+1}</th>
+                            <td>{index+1}</td>
                             <td>{value.Blate}</td>
                             <td>{value.date}</td>
-                            <td>{this.onDataValid(value.user.name)}</td>
-                            <td>{this.onDataValid(value.user.CMND)}</td>
-                            <td>{this.onDataValid(value.user.SDT)}</td>
+                            <td>{this.onDataValid(value.user? value.user.name : '')}</td>
+                            <td>{this.onDataValid(value.user? value.user.CMND : '')}</td>
+                            <td>{this.onDataValid(value.user? value.user.SDT : '')}</td>
                             <td>
-                                <button  className="btn btn-danger">xem hình ảnh</button>
+                                <button name={index} key={index+1} onClick={(event)=>this.onShowImage(event)}  className="btn btn-danger">xem hình ảnh</button>
                             </td>
                     </tr>
                 )
@@ -51,7 +79,7 @@ export default class DataBody extends Component {
     }
     render() {
        
-        return (
+        return this.state.isShowImage ? <PopupImage data={this.state.data}/> :   (
             <div>
                 <table className="table">
                     <thead className="thead-light">
@@ -70,6 +98,17 @@ export default class DataBody extends Component {
                     </tbody>
                 </table>
             </div>
+            
         )
     }
 }
+
+
+const mapStateToProps = state =>{
+    return {
+        username : state.username,
+        role : state.role
+    }
+}
+
+export default connect(mapStateToProps)(DataBody)

@@ -1,11 +1,7 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+class SideBarMain extends Component {
 
-export default class SideBar extends Component {
-    constructor(props) {
-        super(props);
-        
-    }
-    
     onClick = number =>{
         //console.log(number)
         this.props.onSideSelect(number)
@@ -16,9 +12,20 @@ export default class SideBar extends Component {
                 <div id="adminButton" className="d-flex flex-column">
                   <button onClick={()=>this.onClick(0)} className="btn btn-secondary" style={{margin: '1em 0'}}>LIVE</button>
                   <button onClick={()=>this.onClick(1)} className="btn btn-secondary" style={{margin: '1em 0'}}>DATA</button>
-                  <button onClick={()=>this.onClick(2)} className="btn btn-secondary" style={{margin: '1em 0'}}>CONFIG USERS</button>
+                  {
+                      this.props.role === 0 ?<button onClick={()=>this.onClick(2)} className="btn btn-secondary" style={{margin: '1em 0'}}>CONFIG USERS</button> : ''
+                  }
+                  <button onClick={()=>this.onClick(3)} className="btn btn-secondary" style={{margin: '1em 0'}}>LOGOUT</button>
                 </div>
             </div>
         )
     }
 }
+const mapStateToProps = state =>{
+    return {
+      username : state.username,
+      role: state.role
+    }
+  
+}
+export default  connect(mapStateToProps)(SideBarMain);
