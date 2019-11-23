@@ -68,6 +68,7 @@ class DataBody extends Component {
                             <td>{index+1}</td>
                             <td>{value.Blate}</td>
                             <td>{value.date}</td>
+                            <td>time</td>
                             <td>{this.onDataValid(value.user? value.user.name : '')}</td>
                             <td>{this.onDataValid(value.user? value.user.CMND : '')}</td>
                             <td>{this.onDataValid(value.user? value.user.SDT : '')}</td>
@@ -95,6 +96,7 @@ class DataBody extends Component {
                             <th scope="col">#</th>
                             <th scope="col">Biển Số</th>
                             <th scope="col">Ngày Vi Phạm</th>
+                            <th scope="col">Thời Gian</th>
                             <th scope="col">Tên Chủ Phương Tiện</th>
                             <th scope="col">CMND</th>
                             <th scope="col">SDT</th>
