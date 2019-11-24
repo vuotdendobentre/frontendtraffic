@@ -8,7 +8,8 @@ class DataBody extends Component {
         this.state = {
             data : [],
             index : '',
-            isShowImage : false
+            isShowImage : false,
+            onSearch : false
         }
     }
     
@@ -24,7 +25,7 @@ class DataBody extends Component {
                         data : JSON.parse(JSON.stringify(res.data))
                     })
                 }
-            
+
             })
         }else{
            
@@ -68,7 +69,7 @@ class DataBody extends Component {
                             <td>{index+1}</td>
                             <td>{value.Blate}</td>
                             <td>{value.date}</td>
-                            <td>time</td>
+                            <td>{value.time}</td>
                             <td>{this.onDataValid(value.user? value.user.name : '')}</td>
                             <td>{this.onDataValid(value.user? value.user.CMND : '')}</td>
                             <td>{this.onDataValid(value.user? value.user.SDT : '')}</td>
@@ -86,10 +87,21 @@ class DataBody extends Component {
             isShowImage : false
         })
     }
+
+    onChangeSearch = () =>{
+        this.setState({
+            onSearch : !this.state.onSearch
+        })
+    }
+
     render() {
       
         return this.state.isShowImage ? <PopupImage onSelectComponent={this.callBackFromChildBody} data={this.state.data}/> :   (
             <div>
+                <div style={{paddingBottom:'10px'}}>
+                    <button onClick={()=>this.onChangeSearch()} className="btn btn-success">{this.state.onSearch ?'Mới nhất'  : 'Tìm Kiếm'}</button>
+                </div>
+                
                 <table className="table">
                     <thead className="thead-light">
                         <tr>

@@ -7,7 +7,8 @@ export default function callApi(endpoint,method,body){
         dataType : 'jsonp',
         url : `${Config.API_URL}/${endpoint}`,
         data : method!=='GET' ? body : null,
-        headers : method ==='GET' ? body : null
+        headers : method ==='GET' ? body : null,
+        body        
 
     },body).catch(err=>{
         console.log(err);
