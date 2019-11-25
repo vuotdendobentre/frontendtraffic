@@ -12,37 +12,49 @@ class DataBody extends Component {
             index: '',
             dataImg: {},
             isShowImage: false,
-            onSearch: false,
-            sl: 0
+            onSearch: null,
+            sl: 0,
+            maxSl: null,
+            plateSearch :'--',
+            dateSearch :'--',
+            timeSearch:'--'
         }
     }
 
+
+    onChange = (event)=>{
+        let name = event.target.name;
+        let value = event.target.value;
+        this.setState({
+            [name]: value==='' ? '--' :  value 
+        })
+    }
     //get api
     componentDidMount() {
 
         if (this.props.role === 0) {
 
-            callApi(`fails`, 'GET', null).then(res => {
-
+            callApi(`fails/newbydate/--/${_date.getDay().replace(/\//g, '_')}/--/${this.state.sl}`, 'GET', null).then(res => {
                 if (res && res.data) {
                     this.setState({
-                        data: JSON.parse(JSON.stringify(res.data))
+                        onSearch: false,
+                        data: res.data.data,
+                        maxSl: res.data.maxSl
                     })
-                }
 
+                    //this.onRenderData()
+                }
             })
         } else {
             callApi(`fails/plate`, 'POST', {
                 plate: this.props.plate
             }).then(res => {
-
                 if (res && res.data) {
-
+                    console.log(res.data)
                     this.setState({
-                        data: JSON.parse(JSON.stringify(res.data.data))
+                        data: JSON.parse(JSON.stringify(res.data))
                     })
                 }
-
             })
         }
     }
@@ -91,71 +103,136 @@ class DataBody extends Component {
     }
 
     onChangeSearch = () => {
-        if (this.state.onSearch) {
+        if (this.state.onSearch === true) {
             this.setState({
                 onSearch: false,
-               // data: res.data
+                // data: res.data
             })
-            console.log(`fails/newbydate/${_date.getDay().replace(/\//g,'_')}/${this.state.sl}`)
-            callApi(`fails/newbydate/${_date.getDay().replace(/\//g,'_')}/${this.state.sl}`, 'GET', null).then(res => {
+            console.log(`fails/newbydate/--/${_date.getDay().replace(/\//g, '_')}/--/${this.state.sl}`)
+            callApi(`fails/newbydate/--/${_date.getDay().replace(/\//g, '_')}/--/${this.state.sl}`, 'GET', null).then(res => {
                 if (res && res.data) {
-              
                     this.setState({
                         onSearch: false,
-                        data: res.data
+                        data: res.data.data,
+                        maxSl: res.data.maxSl
                     })
                     this.onRenderData()
                 }
             })
-        } else {
+        } else if (this.state.onSearch === false) {
 
             this.setState({
                 onSearch: true,
                 dataContainer: this.state.data,
-               data : []
+                data: []
             })
 
 
         }
     }
+    onPrevNext = (char) => {
+        if (char == '-') {
+            this.setState({
+                sl: this.state.sl > 0 ? this.state.sl-- : 0
+            })
+        } else {
+            this.setState({
+                sl: this.state.sl + 1 <= this.state.maxSl ? this.state.sl++ : this.state.sl
+            })
+        }
+
+        if (this.state.role === 0) {
+            callApi(`fails/newbydate/--/${_date.getDay().replace(/\//g, '_')}/--/${this.state.sl}`, 'GET', null).then(res => {
+                if (res && res.data) {
+
+                    this.setState({
+                        onSearch: false,
+                        data: res.data.data,
+                        maxSl: res.data.maxSl
+                    })
+                    this.onRenderData()
+                }
+            })
+        }
+
+    }
+
+    onFind = ()=>{
+        let date = this.state.dateSearch !=='--' ? this.state.dateSearch.replace(/\//g,'_') : '--'
+        date = date.split('_').reverse().join('_')
+        console.log(date)
+        if(this.props.role===0){
+            callApi(`fails/newbydate/${this.state.plateSearch}/${date}/${this.state.timeSearch}/${this.state.sl}`,'GET',null).then(res=>{
+                if(res && res.data){
+                    this.setState({
+                        //onSearch: false,
+                        data: res.data.data,
+                        maxSl: res.data.maxSl,
+                        
+                    })
+                }
+            })
+        }else{
+           
+                callApi(`fails/newbydate/${this.props.plate[0]}/${date}/${this.state.timeSearch}/${this.state.sl}`,'GET',null).then(res=>{
+                    if(res && res.data){
+                        this.setState({
+                            //onSearch: false,
+                            data: res.data.data,
+                            maxSl: res.data.maxSl,
+                            
+                        })
+                    }
+                })
+            
+        }
+    }
 
     render() {
-        console.log(this.state.data)
+        console.log(this.state)
         return this.state.isShowImage ? <PopupImage onSelectComponent={this.callBackFromChildBody} data={this.state.dataImg} /> : (
             <div>
                 {
-                    !this.state.onSearch ? (
+                    !this.state.onSearch && this.props.role === 0 ? (
                         <div className="row">
                             <div className="col" style={{ paddingBottom: '10px' }}>
-                                <button onClick={() => this.onChangeSearch()} className="btn btn-success">{this.state.onSearch ? 'Mới Nhất' : 'Tìm Kiếm'}</button>
+                                <button onClick={() => this.onChangeSearch()} type="button" className="btn btn-success">{this.state.onSearch ? 'Mới Nhất' : 'Tìm Kiếm'}</button>
                             </div>
                         </div>
                     ) : (
                             <div className="row">
-                                <div className="col" style={{ paddingBottom: '10px' }}>
-                                    <button onClick={() => this.onChangeSearch()} className="btn btn-success">{this.state.onSearch ? 'Mới Nhất' : 'Tìm Kiếm'}</button>
-                                </div>
-                                <div className=" col-xs-12 col-sm-12 col-md-12 col-lg-2 input-group mb-3">
-                                    <div className="input-group-prepend">
-                                        <span className="input-group-text">Plate</span>
-                                    </div>
-                                    <input type="text" className="form-control" placeholder="ex : 71A100000" />
-                                </div>
+                                {
+                                    this.props.role === 0 ? (
+                                        <div className="col" style={{ paddingBottom: '10px' }}>
+                                            <button onClick={() => this.onChangeSearch()} type="button" className="btn btn-success">{this.state.onSearch ? 'Mới Nhất' : 'Tìm Kiếm'}</button>
+                                        </div>
+                                    ) : ''
+                                }
+                                {
+                                    this.props.role === 0 ? (
+                                        <div className=" col-xs-12 col-sm-12 col-md-12 col-lg-2 input-group mb-3">
+                                            <div className="input-group-prepend">
+                                                <span className="input-group-text">Plate</span>
+                                            </div>
+                                            <input onChange={(event)=>this.onChange(event)} name='plateSearch' type="text" className="form-control" placeholder="ex : 71A100000" />
+                                        </div>
+                                    ) : ''
+                                }
                                 <div className=" col-xs-12 col-sm-12 col-md-12 col-lg-2 input-group mb-3">
                                     <div className="input-group-prepend">
                                         <span className="input-group-text">Date</span>
                                     </div>
-                                    <input type="text" className="form-control" placeholder="ex : 01/01/2019" />
+                                    <input onChange={(event)=>this.onChange(event)} name='dateSearch' type="text" className="form-control" placeholder="ex : 01/01/2019" />
                                 </div>
                                 <div className=" col-xs-12 col-sm-12 col-md-12 col-lg-2 input-group mb-3">
                                     <div className="input-group-prepend">
                                         <span className="input-group-text">Time</span>
                                     </div>
-                                    <input type="text" className="form-control" placeholder="ex : 00:00:00" />
+                                    <input onChange={(event)=>this.onChange(event)} name='timeSearch' type="text" className="form-control" placeholder="ex : 00:00:00" />
                                 </div>
 
                                 <div className=" col-xs-12 col-sm-12 col-md-12 col-lg-2 input-group mb-3">
-                                    <button className="btn btn-danger">Tìm Kiếm</button>
+                                    <button onClick={()=>this.onFind()} type="button" className="btn btn-danger">Submit</button>
                                 </div>
                             </div>
                         )
@@ -181,8 +258,8 @@ class DataBody extends Component {
                     </tbody>
                 </table>
                 <div style={{ textAlign: 'center' }}>
-                    <a className="float-center previous round">&#8249;</a>
-                    <a className="float-center next round">&#8250;</a>
+                    <a onClick={() => this.onPrevNext('-')} className="float-center previous round">&#8249;</a>
+                    <a onClick={() => this.onPrevNext('+')} className="float-center next round">&#8250;</a>
                 </div>
             </div >
 
