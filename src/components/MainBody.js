@@ -12,7 +12,7 @@ class MainBody extends Component {
       onSide : 1
     }
   }
-  componentWillUnmount(){
+  UNSAFE_componentWillUnmount(){
     this.setState({
       onSide :1
     })

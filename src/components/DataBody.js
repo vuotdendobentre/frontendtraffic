@@ -8,6 +8,7 @@ class DataBody extends Component {
         this.state = {
             data : [],
             index : '',
+            dataImg :{},
             isShowImage : false,
             onSearch : false
         }
@@ -53,9 +54,10 @@ class DataBody extends Component {
         return ''
     }
     onShowImage = (event) =>{
-        
+        console.log(event.target.name)
         this.setState({
             index : parseInt(event.target.name),
+            dataImg : this.state.data[parseInt(event.target.name)],
             isShowImage: true
         })
     }
@@ -96,7 +98,7 @@ class DataBody extends Component {
 
     render() {
       
-        return this.state.isShowImage ? <PopupImage onSelectComponent={this.callBackFromChildBody} data={this.state.data}/> :   (
+        return this.state.isShowImage ? <PopupImage onSelectComponent={this.callBackFromChildBody} data={this.state.dataImg}/> :   (
             <div>
                 <div style={{paddingBottom:'10px'}}>
                     <button onClick={()=>this.onChangeSearch()} className="btn btn-success">{this.state.onSearch ?'Mới nhất'  : 'Tìm Kiếm'}</button>

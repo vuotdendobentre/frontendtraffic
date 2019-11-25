@@ -1,15 +1,8 @@
 import React, { Component } from 'react';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
-
-const images = [
-    // '//placekitten.com/1500/500',
-    // '//placekitten.com/4000/3000',
-    // '//placekitten.com/800/1200',
-    // '//placekitten.com/1500/1500',
-    
-
-];
+import callApi from './../apicall/apiCaller'
+import * as Config from './../apicall/Config';
 
 class PopupImage extends Component {
     constructor(props) {
@@ -18,10 +11,27 @@ class PopupImage extends Component {
         this.state = {
             photoIndex: 0,
             isOpen: true,
+            data : []
         };
     }
-
-    onRenderHight = (photoIndex,isOpen) =>{
+    componentDidMount(){
+        let {_id, Blate ,date,time } = this.props.data;
+        date =  date.replace(/\//g,'_');
+        
+        callApi(`fails/${Blate}/${date}`,'GET',null).then(res=>{
+            if(res.data){
+                let index = res.data.findIndex((value)=>{
+                    return value._id == _id;
+                    
+                })
+                console.log(index)
+                this.setState({
+                    data : res.data
+                })
+            }
+        })
+    }
+    onRenderHight = (images,photoIndex,isOpen) =>{
         return (
             <div>
                 {isOpen && (
@@ -45,12 +55,16 @@ class PopupImage extends Component {
             </div>
         )
     }
-    onRenderLow = (photoIndex,isOpen) =>{
-        console.log('low')
+    onRenderLow = (images,photoIndex,isOpen) =>{
+       
         return (
             <div>
+              
                 {isOpen && (
+                    
                     <Lightbox
+
+                        
                         mainSrc={images[photoIndex]}
                         
                         onCloseRequest={() => this.setState({ isOpen: false }),this.props.onSelectComponent}
@@ -64,6 +78,7 @@ class PopupImage extends Component {
                                 photoIndex: (photoIndex + 1) % images.length,
                             })
                         }
+                        
                     />
                 )}
             </div>
@@ -72,10 +87,14 @@ class PopupImage extends Component {
 
     render() {
         const { photoIndex, isOpen } = this.state;
-        console.log(images.length)
+        let { data } = this.state;
+        data = data.map((value,index)=>{
+            return `${Config.API_URL}/img/${value.date.replace(/\//g,'_')}/${value.Blate}_${value.time}.jpg`
+        })
+        console.log(data[0])
         return (
             
-                images.length-1>0 ? this.onRenderHight(photoIndex,isOpen) : this.onRenderLow(photoIndex,isOpen)
+                data.length-1>0 ? this.onRenderHight(data,photoIndex,isOpen) : this.onRenderLow(data,photoIndex,isOpen)
             
             
         );
