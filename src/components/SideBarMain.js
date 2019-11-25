@@ -8,7 +8,7 @@ class SideBarMain extends Component {
     }
     render() {
         return (
-            <div id="selector" className="col-lg-2 collapse d-md-block" style={{width: '100%'}}>
+            <div id="selector" className="col-xs-12 col-sm-12 col-lg-2 collapse d-md-block" style={{width: '100%'}}>
                 <div id="adminButton" className="d-flex flex-column">
                     {
                       this.props.role === 0 ?<button onClick={()=>this.onClick(0)} className="btn btn-secondary" style={{margin: '1em 0'}}>LIVE</button>: ''

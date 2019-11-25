@@ -2,108 +2,167 @@ import React, { Component } from 'react'
 import callApi from './../apicall/apiCaller'
 import { connect } from 'react-redux'
 import PopupImage from './PopupImage';
+import _date from './../datetime/date'
 class DataBody extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data : [],
-            index : '',
-            dataImg :{},
-            isShowImage : false,
-            onSearch : false
+            data: [],
+            dataContainer: [],
+            index: '',
+            dataImg: {},
+            isShowImage: false,
+            onSearch: false,
+            sl: 0
         }
     }
-    
+
     //get api
-    componentDidMount(){
-        
-        if(this.props.role===0){
-          
-            callApi(`fails`,'GET',null).then(res=>{
-            
-                if(res && res.data){
+    componentDidMount() {
+
+        if (this.props.role === 0) {
+
+            callApi(`fails`, 'GET', null).then(res => {
+
+                if (res && res.data) {
                     this.setState({
-                        data : JSON.parse(JSON.stringify(res.data))
+                        data: JSON.parse(JSON.stringify(res.data))
                     })
                 }
 
             })
-        }else{
-           
+        } else {
+            callApi(`fails/plate`, 'POST', {
+                plate: this.props.plate
+            }).then(res => {
 
-            
-            callApi(`fails/plate`,'POST',{
-                plate : this.props.plate
-            }).then(res=>{
-            
-                if(res && res.data){
-                    
+                if (res && res.data) {
+
                     this.setState({
-                        data : JSON.parse(JSON.stringify(res.data.data))
+                        data: JSON.parse(JSON.stringify(res.data.data))
                     })
                 }
-            
+
             })
         }
     }
 
-    onDataValid = (data)=>{
-        if(data && data!==undefined && data!=="undefined"){
+    onDataValid = (data) => {
+        if (data && data !== undefined && data !== "undefined") {
             return data
         }
         return ''
     }
-    onShowImage = (event) =>{
+    onShowImage = (event) => {
         console.log(event.target.name)
         this.setState({
-            index : parseInt(event.target.name),
-            dataImg : this.state.data[parseInt(event.target.name)],
+            index: parseInt(event.target.name),
+            dataImg: this.state.data[parseInt(event.target.name)],
             isShowImage: true
         })
     }
-    onRenderData (){
-        let result =''
-        if(this.state.data && this.state.data.length > 0){
-            
-             result = this.state.data.map((value,index)=>{
+    onRenderData() {
+        let result = ''
+        if (this.state.data && this.state.data.length > 0) {
+
+            result = this.state.data.map((value, index) => {
                 return (
-                    <tr key={index+1}>
-                            <td>{index+1}</td>
-                            <td>{value.Blate}</td>
-                            <td>{value.date}</td>
-                            <td>{value.time}</td>
-                            <td>{this.onDataValid(value.user? value.user.name : '')}</td>
-                            <td>{this.onDataValid(value.user? value.user.CMND : '')}</td>
-                            <td>{this.onDataValid(value.user? value.user.SDT : '')}</td>
-                            <td>
-                                <button name={index} key={index+1} onClick={(event)=>this.onShowImage(event)}  className="btn btn-danger">xem hình ảnh</button>
-                            </td>
+                    <tr key={index + 1}>
+                        <td>{index + 1}</td>
+                        <td>{value.Blate}</td>
+                        <td>{value.date}</td>
+                        <td>{value.time}</td>
+                        <td>{this.onDataValid(value.user ? value.user.name : '')}</td>
+                        <td>{this.onDataValid(value.user ? value.user.CMND : '')}</td>
+                        <td>{this.onDataValid(value.user ? value.user.SDT : '')}</td>
+                        <td>
+                            <button name={index} key={index + 1} onClick={(event) => this.onShowImage(event)} className="btn btn-danger">xem hình ảnh</button>
+                        </td>
                     </tr>
                 )
             })
         }
         return result;
     }
-    callBackFromChildBody = ()=>{
+    callBackFromChildBody = () => {
         this.setState({
-            isShowImage : false
+            isShowImage: false
         })
     }
 
-    onChangeSearch = () =>{
-        this.setState({
-            onSearch : !this.state.onSearch
-        })
+    onChangeSearch = () => {
+        if (this.state.onSearch) {
+            this.setState({
+                onSearch: false,
+               // data: res.data
+            })
+            console.log(`fails/newbydate/${_date.getDay().replace(/\//g,'_')}/${this.state.sl}`)
+            callApi(`fails/newbydate/${_date.getDay().replace(/\//g,'_')}/${this.state.sl}`, 'GET', null).then(res => {
+                if (res && res.data) {
+              
+                    this.setState({
+                        onSearch: false,
+                        data: res.data
+                    })
+                    this.onRenderData()
+                }
+            })
+        } else {
+
+            this.setState({
+                onSearch: true,
+                dataContainer: this.state.data,
+               data : []
+            })
+
+
+        }
     }
 
     render() {
-      
-        return this.state.isShowImage ? <PopupImage onSelectComponent={this.callBackFromChildBody} data={this.state.dataImg}/> :   (
+        console.log(this.state.data)
+        return this.state.isShowImage ? <PopupImage onSelectComponent={this.callBackFromChildBody} data={this.state.dataImg} /> : (
             <div>
-                <div style={{paddingBottom:'10px'}}>
-                    <button onClick={()=>this.onChangeSearch()} className="btn btn-success">{this.state.onSearch ?'Mới nhất'  : 'Tìm Kiếm'}</button>
-                </div>
-                
+                {
+                    !this.state.onSearch ? (
+                        <div className="row">
+                            <div className="col" style={{ paddingBottom: '10px' }}>
+                                <button onClick={() => this.onChangeSearch()} className="btn btn-success">{this.state.onSearch ? 'Mới Nhất' : 'Tìm Kiếm'}</button>
+                            </div>
+                        </div>
+                    ) : (
+                            <div className="row">
+                                <div className="col" style={{ paddingBottom: '10px' }}>
+                                    <button onClick={() => this.onChangeSearch()} className="btn btn-success">{this.state.onSearch ? 'Mới Nhất' : 'Tìm Kiếm'}</button>
+                                </div>
+                                <div className=" col-xs-12 col-sm-12 col-md-12 col-lg-2 input-group mb-3">
+                                    <div className="input-group-prepend">
+                                        <span className="input-group-text">Plate</span>
+                                    </div>
+                                    <input type="text" className="form-control" placeholder="ex : 71A100000" />
+                                </div>
+                                <div className=" col-xs-12 col-sm-12 col-md-12 col-lg-2 input-group mb-3">
+                                    <div className="input-group-prepend">
+                                        <span className="input-group-text">Date</span>
+                                    </div>
+                                    <input type="text" className="form-control" placeholder="ex : 01/01/2019" />
+                                </div>
+                                <div className=" col-xs-12 col-sm-12 col-md-12 col-lg-2 input-group mb-3">
+                                    <div className="input-group-prepend">
+                                        <span className="input-group-text">Time</span>
+                                    </div>
+                                    <input type="text" className="form-control" placeholder="ex : 00:00:00" />
+                                </div>
+
+                                <div className=" col-xs-12 col-sm-12 col-md-12 col-lg-2 input-group mb-3">
+                                    <button className="btn btn-danger">Tìm Kiếm</button>
+                                </div>
+                            </div>
+                        )
+                }
+
+
+
                 <table className="table">
                     <thead className="thead-light">
                         <tr>
@@ -121,22 +180,22 @@ class DataBody extends Component {
                         {this.onRenderData()}
                     </tbody>
                 </table>
-                <div style={{textAlign:'center'}}>
-                        <a  className="float-center previous round">&#8249;</a>
-                        <a  className="float-center next round">&#8250;</a>
+                <div style={{ textAlign: 'center' }}>
+                    <a className="float-center previous round">&#8249;</a>
+                    <a className="float-center next round">&#8250;</a>
                 </div>
-            </div>
-            
+            </div >
+
         )
     }
 }
 
 
-const mapStateToProps = state =>{
+const mapStateToProps = state => {
     return {
-        username : state.username,
-        role : state.role,
-        plate : state.plate
+        username: state.username,
+        role: state.role,
+        plate: state.plate
     }
 }
 

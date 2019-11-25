@@ -33,7 +33,7 @@ class MainBody extends Component {
     return (
       <div id="infoSection" className="container-fluid row">
         <SideBarMain onSideSelect={this.callBackFromChildBody} />
-        <div id="info" className="col-sm-12 col-md-12 col-lg-10">
+        <div id="info" className="col-xs-12 col-sm-12 col-md-12 col-lg-10">
           {this.state.onSide===0 ? <h3>Giám Sát Trực Tuyến</h3> : this.state.onSide===1 ? <h3>Danh Sách Lỗi Vi Phạm</h3> :this.state.onSide===2 ? <h3>Quản Lý Tài Khoản</h3> : <h3>Danh Sách Lỗi Vi Phạm</h3>}
           {this.onRenderBody()}
         </div>
