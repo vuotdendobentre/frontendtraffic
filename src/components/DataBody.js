@@ -15,18 +15,18 @@ class DataBody extends Component {
             onSearch: null,
             sl: 0,
             maxSl: null,
-            plateSearch :'--',
-            dateSearch :'--',
-            timeSearch:'--'
+            plateSearch: '--',
+            dateSearch: '--',
+            timeSearch: '--'
         }
     }
 
 
-    onChange = (event)=>{
+    onChange = (event) => {
         let name = event.target.name;
         let value = event.target.value;
         this.setState({
-            [name]: value==='' ? '--' :  value 
+            [name]: value === '' ? '--' : value
         })
     }
     //get api
@@ -82,7 +82,7 @@ class DataBody extends Component {
                     <tr key={index + 1}>
                         <td>{index + 1}</td>
                         <td>{value.Blate}</td>
-                        <td>{value.date}</td>
+                        <td>{value.date.split('/').reverse().join('/')}</td>
                         <td>{value.time}</td>
                         <td>{this.onDataValid(value.user ? value.user.name : '')}</td>
                         <td>{this.onDataValid(value.user ? value.user.CMND : '')}</td>
@@ -137,7 +137,7 @@ class DataBody extends Component {
             })
         } else {
             this.setState({
-                sl: this.state.sl + 1 <= this.state.maxSl ? this.state.sl++ : this.state.sl
+                sl: (this.state.sl + 1)*10 <= this.state.maxSl ? this.state.sl++ : this.state.sl
             })
         }
 
@@ -157,34 +157,37 @@ class DataBody extends Component {
 
     }
 
-    onFind = ()=>{
-        let date = this.state.dateSearch !=='--' ? this.state.dateSearch.replace(/\//g,'_') : '--'
-        date = date.split('_').reverse().join('_')
+    onFind = () => {
+        let date = this.state.dateSearch !== '--' ? this.state.dateSearch.replace(/\//g, '_') : '--'
+        if (date !== '--') {
+            date = date.split('_').reverse().join('_')
+        }
         console.log(date)
-        if(this.props.role===0){
-            callApi(`fails/newbydate/${this.state.plateSearch}/${date}/${this.state.timeSearch}/${this.state.sl}`,'GET',null).then(res=>{
-                if(res && res.data){
+        if (this.props.role === 0) {
+            callApi(`fails/newbydate/${this.state.plateSearch}/${date}/${this.state.timeSearch}/${this.state.sl}`, 'GET', null).then(res => {
+                if (res && res.data) {
                     this.setState({
                         //onSearch: false,
                         data: res.data.data,
                         maxSl: res.data.maxSl,
-                        
+
                     })
                 }
             })
-        }else{
-           
-                callApi(`fails/newbydate/${this.props.plate[0]}/${date}/${this.state.timeSearch}/${this.state.sl}`,'GET',null).then(res=>{
-                    if(res && res.data){
-                        this.setState({
-                            //onSearch: false,
-                            data: res.data.data,
-                            maxSl: res.data.maxSl,
-                            
-                        })
-                    }
-                })
-            
+        } else {
+
+            callApi(`fails/newbydate/${this.state.plateSearch}/${date}/${this.state.timeSearch}/${this.state.sl}`, 'GET', null).then(res => {
+                console.log(res.data.data)
+                if (res && res.data) {
+                    this.setState({
+                        //onSearch: false,
+                        data: res.data.data,
+                        maxSl: res.data.maxSl,
+
+                    })
+                }
+            })
+
         }
     }
 
@@ -214,25 +217,37 @@ class DataBody extends Component {
                                             <div className="input-group-prepend">
                                                 <span className="input-group-text">Plate</span>
                                             </div>
-                                            <input onChange={(event)=>this.onChange(event)} name='plateSearch' type="text" className="form-control" placeholder="ex : 71A100000" />
+                                            <input onChange={(event) => this.onChange(event)} name='plateSearch' type="text" className="form-control" placeholder="ex : 71A100000" />
                                         </div>
-                                    ) : ''
+                                    ) : (
+                                            <div className=" col-xs-12 col-sm-12 col-md-12 col-lg-2 input-group mb-3">
+                                                <div className="input-group-prepend">
+                                                    <span className="input-group-text">Plate</span>
+                                                </div>
+                                                <select onChange={(event) => this.onChange(event)} name='plateSearch' type="text" className="form-control" placeholder="ex : 71A100000">
+                                                    {this.props.plate.map((value, index) => {
+                                                        return (<option>{value}</option>)
+                                                    })}
+                                                </select>
+
+                                            </div>
+                                        )
                                 }
                                 <div className=" col-xs-12 col-sm-12 col-md-12 col-lg-2 input-group mb-3">
                                     <div className="input-group-prepend">
                                         <span className="input-group-text">Date</span>
                                     </div>
-                                    <input onChange={(event)=>this.onChange(event)} name='dateSearch' type="text" className="form-control" placeholder="ex : 01/01/2019" />
+                                    <input onChange={(event) => this.onChange(event)} name='dateSearch' type="text" className="form-control" placeholder="ex : 01/01/2019" />
                                 </div>
                                 <div className=" col-xs-12 col-sm-12 col-md-12 col-lg-2 input-group mb-3">
                                     <div className="input-group-prepend">
                                         <span className="input-group-text">Time</span>
                                     </div>
-                                    <input onChange={(event)=>this.onChange(event)} name='timeSearch' type="text" className="form-control" placeholder="ex : 00:00:00" />
+                                    <input onChange={(event) => this.onChange(event)} name='timeSearch' type="text" className="form-control" placeholder="ex : 00:00:00" />
                                 </div>
 
                                 <div className=" col-xs-12 col-sm-12 col-md-12 col-lg-2 input-group mb-3">
-                                    <button onClick={()=>this.onFind()} type="button" className="btn btn-danger">Submit</button>
+                                    <button onClick={() => this.onFind()} type="button" className="btn btn-danger">Submit</button>
                                 </div>
                             </div>
                         )
@@ -240,8 +255,9 @@ class DataBody extends Component {
 
 
 
-                <table className="table">
-                    <thead className="thead-light">
+
+                <table className="table table-hover" style={{ textAlign: 'center' }} id="myTable">
+                    <thead className="thead-dark">
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Biển Số</th>

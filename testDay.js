@@ -1,6 +1,3 @@
-let string = '2019/15/11'
-
-let result = string.split('/').reverse().join('/')
-
-
-console.log(result)
+var myFish = ['angel', 'clown', 'drum', 'mandarin', 'sturgeon'];
+var removed = myFish.splice(3, 1);
+console.log(myFish)
