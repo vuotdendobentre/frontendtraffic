@@ -67,11 +67,11 @@ class LoginPage extends Component {
                 <div style={{ display: 'flex', height: '100%', backgroundColor: 'azure', alignItems: 'center' }} className="align-bottom">
                     <form action="/main" className="mx-auto shadow p-3 mb-5 bg-white rounded" style={{ width: '40%', padding: '2em' }}>
                         <div className="form-group">
-                            <label htmlFor="userName">User name</label>
+                            <label htmlFor="userName">Tên Tài Khoản</label>
                             <input onChange={(event)=>this.onChange(event)}  type="text" name="username"  className="form-control" id="userName" aria-describedby="emailHelp" />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="password">Password</label>
+                            <label htmlFor="password">Mật Khẩu</label>
                             <input  onKeyPress ={(event)=>this.onKeyPress(event)} onChange={(event)=>this.onChange(event)} type="password" name="password" className="form-control" id="password" />
                            
 
@@ -83,7 +83,7 @@ class LoginPage extends Component {
                                 onClick={()=>this.onSubmit()} 
                                 className="btn btn-primary"
                             >
-                                Login
+                                Đăng Nhập
                              </button>
                         </div>
                     </form>

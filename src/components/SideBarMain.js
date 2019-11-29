@@ -13,11 +13,11 @@ class SideBarMain extends Component {
                     {/* {
                       this.props.role === 0 ?<button onClick={()=>this.onClick(0)} className="btn btn-secondary" style={{margin: '1em 0'}}>LIVE</button>: ''
                     } */}
-                     <button onClick={()=>this.onClick(1)} className="btn btn-secondary" style={{margin: '1em 0'}}>DATA</button>
+                     <button onClick={()=>this.onClick(1)} className="btn btn-secondary" style={{margin: '1em 0'}}>Quản Lý Lỗi</button>
                     {
-                      this.props.role === 0 ?<button onClick={()=>this.onClick(2)} className="btn btn-secondary" style={{margin: '1em 0'}}>CONFIG USERS</button> : ''
+                      this.props.role === 0 ?<button onClick={()=>this.onClick(2)} className="btn btn-secondary" style={{margin: '1em 0'}}>Quản Lý Tài Khoản</button> : ''
                     }
-                    <button onClick={()=>this.onClick(3)} className="btn btn-secondary" style={{margin: '1em 0'}}>LOGOUT</button>
+                    <button onClick={()=>this.onClick(3)} className="btn btn-secondary" style={{margin: '1em 0'}}>Đăng Xuất</button>
                 </div>
             </div>
         )

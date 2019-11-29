@@ -142,12 +142,12 @@ export default class ConfigUserBody extends Component {
                 <div className="row">
                     <div className=" col-xs-12 col-sm-12 col-md-12 col-lg-2 input-group mb-3">
                         <div className="input-group-prepend">
-                            <span className="input-group-text">username</span>
+                            <span className="input-group-text">Tên Tài Khoản</span>
                         </div>
-                        <input onChange={(event) => this.onChange(event)} name='usernameSearch' type="text" className="form-control" placeholder="ex : user1" />
+                        <input onChange={(event) => this.onChange(event)} name='usernameSearch' type="text" className="form-control" placeholder="vd: : user1" />
                     </div>               
                     <div className=" col-xs-12 col-sm-12 col-md-12 col-lg-2 input-group mb-3">
-                        <button onClick={() => this.onFind()} type="button" className="btn btn-danger">Find</button>
+                        <button onClick={() => this.onFind()} type="button" className="btn btn-danger">Tìm Kiếm</button>
                     </div>
                 </div>
                 <div id="info" className="col-sm-12 col-md-12 col-lg-11">
@@ -155,14 +155,14 @@ export default class ConfigUserBody extends Component {
                         <thead className="thead-dark">
                             <tr>
                                 <th>#</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">UserName</th>
-                                <th scope="col">Password</th>
+                                <th scope="col">Tên </th>
+                                <th scope="col">Tên Tài Khoản</th>
+                                <th scope="col">Mật Khẩu</th>
                                 <th scope="col">CMND</th>
                                 <th scope="col">SDT</th>
-                                <th scope="col">Rule</th>
-                                <th scope="col">Plate</th>
-                                <th scope="col">Modify</th>
+                                <th scope="col">Quyền Truy Cập</th>
+                                <th scope="col">Biển Số</th>
+                                <th scope="col">Chỉnh Sửa</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -209,20 +209,20 @@ export default class ConfigUserBody extends Component {
                                             <form id="myForm" >
                                                 <div className="form-group d-flex">
                                                     <label htmlFor="userName" className="col-2">
-                                                        <strong>UserName</strong>
+                                                        <strong>Tên Tài Khoản</strong>
                                                     </label>
                                                     <input value={userSelect.username} name="userName" type="text" className="form-control col-10" disabled />
                                                 </div>
                                                 <div className="form-group d-flex">
                                                     <label htmlFor="name" className="col-2">
-                                                        <strong>Name</strong>
+                                                        <strong>Tên</strong>
                                                     </label>
                                                     <input onChange={(event) => this.textOnChange(event)} value={userSelect.name} name="name" type="text" className="form-control col-10" />
                                                 </div>
 
                                                 <div className="form-group d-flex">
                                                     <label htmlFor="password" className="col-2">
-                                                        <strong>Password</strong>
+                                                        <strong>Mật Khẩu</strong>
                                                     </label>
                                                     <input onChange={(event) => this.textOnChange(event)} value={userSelect.password} name="password" type="text" className="form-control col-10" />
                                                 </div>
@@ -241,19 +241,19 @@ export default class ConfigUserBody extends Component {
 
                                                 <div className="form-group d-flex">
                                                     <label htmlFor="plate" className="col-2">
-                                                        <strong>Plate</strong>
+                                                        <strong>Biển Số</strong>
                                                     </label>
                                                     <input value={userSelect.Blate !== undefined ? userSelect.Blate.map((value, index) => { return value }) : ''} name="plate" type="text" className="form-control col-10" disabled />
                                                 </div>
                                                 <div className="form-group d-flex">
                                                     <label htmlFor="rule" className="col-2">
-                                                        <strong>Rule</strong>
+                                                        <strong>Quyền Truy Cập</strong>
                                                     </label>
                                                     <input onChange={(event) => this.textOnChange(event)} value={userSelect.rule} name="rule" type="text" className="form-control col-10" />
                                                 </div>
                                                 <div style={{ display: 'flex', flexDirection: 'row-reverse' }}  >
                                                     <button onClick={() => this.onUpdate()} type='button' className="btn btn-outline-dark">
-                                                        Submit
+                                                        Xác Nhận
                                                 </button>
                                                 </div>
                                             </form>
