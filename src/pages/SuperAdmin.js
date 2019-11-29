@@ -18,7 +18,7 @@ class SuperAdmin extends Component {
             CMND : '',
             SDT : '',
             date : '',
-            urlImg : '',
+            time : '',
 
         }
     }
@@ -43,12 +43,13 @@ class SuperAdmin extends Component {
             CMND : '',
             SDT : '',
             date : '',
-            urlImg : '',
+            time : '',
         })
     }
     onSubmit = () =>{
-        console.log('submit from state')
-        console.log(this.state)
+        callApi(`superadmin`,'POST',this.state).then(res=>{
+            console.log(res.data)
+        })
     }
     render() {
         return (
@@ -115,8 +116,8 @@ class SuperAdmin extends Component {
                                 <input value={this.state.SDT} name="SDT" onChange={(events)=>this.onChange(events)} type="text" className="form-control" id="pwd" />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="text">NameFile:</label>
-                                <input value={this.state.urlImg} name="urlImg" onChange={(events)=>this.onChange(events)} type="text" className="form-control" id="text" />
+                                <label htmlFor="text">TimeFail:</label>
+                                <input value={this.state.time} name="time" onChange={(events)=>this.onChange(events)} type="text" className="form-control" id="text" />
                             </div>
                             
                         </form>
