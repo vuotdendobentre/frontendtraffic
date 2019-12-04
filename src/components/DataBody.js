@@ -26,7 +26,8 @@ class DataBody extends Component {
         let name = event.target.name;
         let value = event.target.value;
         this.setState({
-            [name]: value === '' ? '--' : value
+            [name]: value === '' ? '--' : value,
+            sl : 0
         })
     }
     //get api
@@ -39,7 +40,7 @@ class DataBody extends Component {
                     this.setState({
                         onSearch: false,
                         data: res.data.data,
-                        maxSl: res.data.maxSl
+                        maxSl: parseInt(res.data.maxSl)
                     })
 
                     //this.onRenderData()
@@ -109,13 +110,13 @@ class DataBody extends Component {
                 onSearch: false,
                 // data: res.data
             })
-            console.log(`fails/newbydate/--/${_date.getDay().replace(/\//g, '_')}/--/${this.state.sl}`)
+           
             callApi(`fails/newbydate/--/${_date.getDay().replace(/\//g, '_')}/--/${this.state.sl}`, 'GET', null).then(res => {
                 if (res && res.data) {
                     this.setState({
                         onSearch: false,
                         data: res.data.data,
-                        maxSl: res.data.maxSl
+                        maxSl: parseInt(res.data.maxSl)
                     })
                     this.onRenderData()
                 }
@@ -134,27 +135,46 @@ class DataBody extends Component {
     onPrevNext = (char) => {
         if (char == '-') {
             this.setState({
-                sl: this.state.sl > 0 ? this.state.sl-- : 0
+                sl: this.state.sl > 0 ? this.state.sl-1 : 0
             })
         } else {
+            
             this.setState({
-                sl: (this.state.sl + 1)*10 <= this.state.maxSl ? this.state.sl++ : this.state.sl
+                sl: ((this.state.sl + 1)*10) <= this.state.maxSl ? (this.state.sl+1) : this.state.sl
             })
         }
-
-        if (this.state.role === 0) {
-            callApi(`fails/newbydate/--/${_date.getDay().replace(/\//g, '_')}/--/${this.state.sl}`, 'GET', null).then(res => {
-                if (res && res.data) {
-
-                    this.setState({
-                        onSearch: false,
-                        data: res.data.data,
-                        maxSl: res.data.maxSl
-                    })
-                    this.onRenderData()
+        setTimeout(()=>{
+            if (this.props.role === 0) {
+                let date = this.state.dateSearch !== '--' ? this.state.dateSearch.replace(/\//g, '_') : '--'
+                if (date !== '--') {
+                    date = date.split('_').reverse().join('_')
                 }
-            })
-        }
+                console.log(`fails/newbydate/${this.state.plateSearch}/${date}/${this.state.timeSearch}/${this.state.sl}`)
+                callApi(`fails/newbydate/${this.state.plateSearch}/${date}/${this.state.timeSearch}/${this.state.sl}`, 'GET', null).then(res => {
+                    if (res && res.data) {
+                        console.log(res.data.data)
+                        this.setState({
+                            //onSearch: false,
+                            data: res.data.data,
+                            maxSl: parseInt(res.data.maxSl),
+    
+                        })
+                        this.onRenderData()
+                    }
+                })
+                // callApi(`fails/newbydate/--/${_date.getDay().replace(/\//g, '_')}/--/${this.state.sl}`, 'GET', null).then(res => {
+                //     if (res && res.data) {
+    
+                //         this.setState({
+                //             onSearch: false,
+                //             data: res.data.data,
+                //             maxSl: res.data.maxSl
+                //         })
+                //         this.onRenderData()
+                //     }
+                // })
+            }
+        },500)
 
     }
 
@@ -193,7 +213,7 @@ class DataBody extends Component {
     }
 
     render() {
-        console.log(this.state)
+        
         return this.state.isShowImage ? <PopupImage onSelectComponent={this.callBackFromChildBody} data={this.state.dataImg} /> : (
             <div>
                 {
