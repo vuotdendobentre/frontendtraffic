@@ -116,7 +116,8 @@ class DataBody extends Component {
                     this.setState({
                         onSearch: false,
                         data: res.data.data,
-                        maxSl: parseInt(res.data.maxSl)
+                        maxSl: parseInt(res.data.maxSl),
+                        sl : 0
                     })
                     this.onRenderData()
                 }
@@ -126,13 +127,16 @@ class DataBody extends Component {
             this.setState({
                 onSearch: true,
                 dataContainer: this.state.data,
-                data: []
+                data: [],
+                sl : 0
+                
             })
 
 
         }
     }
     onPrevNext = (char) => {
+        console.log(this.state.onSearch)
         if (char == '-') {
             this.setState({
                 sl: this.state.sl > 0 ? this.state.sl-1 : 0
@@ -145,36 +149,39 @@ class DataBody extends Component {
         }
         setTimeout(()=>{
             if (this.props.role === 0) {
-                let date = this.state.dateSearch !== '--' ? this.state.dateSearch.replace(/\//g, '_') : '--'
-                if (date !== '--') {
-                    date = date.split('_').reverse().join('_')
-                }
-                console.log(`fails/newbydate/${this.state.plateSearch}/${date}/${this.state.timeSearch}/${this.state.sl}`)
-                callApi(`fails/newbydate/${this.state.plateSearch}/${date}/${this.state.timeSearch}/${this.state.sl}`, 'GET', null).then(res => {
-                    if (res && res.data) {
-                        console.log(res.data.data)
-                        this.setState({
-                            //onSearch: false,
-                            data: res.data.data,
-                            maxSl: parseInt(res.data.maxSl),
-    
-                        })
-                        this.onRenderData()
+                if(this.state.onSearch===false || this.state.onSearch===null){
+                    callApi(`fails/newbydate/--/${_date.getDay().replace(/\//g, '_')}/--/${this.state.sl}`, 'GET', null).then(res => {
+                        if (res && res.data) {
+                            this.setState({
+                                onSearch: false,
+                                data: res.data.data,
+                                maxSl: parseInt(res.data.maxSl),
+                                sl : 0
+                            })
+                            this.onRenderData()
+                        }
+                    })
+                }else{
+                    let date = this.state.dateSearch !== '--' ? this.state.dateSearch.replace(/\//g, '_') : '--'
+                    if (date !== '--') {
+                        date = date.split('_').reverse().join('_')
                     }
-                })
-                // callApi(`fails/newbydate/--/${_date.getDay().replace(/\//g, '_')}/--/${this.state.sl}`, 'GET', null).then(res => {
-                //     if (res && res.data) {
-    
-                //         this.setState({
-                //             onSearch: false,
-                //             data: res.data.data,
-                //             maxSl: res.data.maxSl
-                //         })
-                //         this.onRenderData()
-                //     }
-                // })
+                    //console.log(`fails/newbydate/${this.state.plateSearch}/${date}/${this.state.timeSearch}/${this.state.sl}`)
+                    callApi(`fails/newbydate/${this.state.plateSearch}/${date}/${this.state.timeSearch}/${this.state.sl}`, 'GET', null).then(res => {
+                        if (res && res.data) {
+                            console.log(res.data.data)
+                            this.setState({
+                                //onSearch: false,
+                                data: res.data.data,
+                                maxSl: parseInt(res.data.maxSl),
+        
+                            })
+                            this.onRenderData()
+                        }
+                    })
+                }
             }
-        },500)
+        },200)
 
     }
 
