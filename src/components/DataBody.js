@@ -14,6 +14,7 @@ class DataBody extends Component {
             isShowImage: false,
             onSearch: null,
             sl: 0,
+            slUser : 0,
             maxSl: null,
             plateSearch: '--',
             dateSearch: '--',
@@ -21,6 +22,16 @@ class DataBody extends Component {
         }
     }
 
+    Chonfile(arr, soluong) {
+        soluong = parseInt(soluong);
+        soluong = soluong * 10;
+        if (arr.length > (soluong + 10)) {
+            return (arr.slice(soluong, soluong + 10));
+        } else {
+            return arr.slice(soluong, arr.length);
+        }
+    
+    }
 
     onChange = (event) => {
         let name = event.target.name;
@@ -77,9 +88,10 @@ class DataBody extends Component {
     }
     onRenderData() {
         let result = ''
+         
         if (this.state.data && this.state.data.length > 0) {
-
-            result = this.state.data.map((value, index) => {
+            let data = this.props.role === 0 ? this.state.data : this.Chonfile(this.state.data,this.state.slUser)
+            result = data.map((value, index) => {
                 return (
                     <tr key={index + 1}>
                         <td>{index + 1}</td>
@@ -139,12 +151,14 @@ class DataBody extends Component {
         console.log(this.state.onSearch)
         if (char == '-') {
             this.setState({
-                sl: this.state.sl > 0 ? this.state.sl-1 : 0
+                sl: this.state.sl > 0 ? this.state.sl-1 : 0,
+                slUser: this.state.slUser > 0 ? this.state.slUser-1 : 0
             })
         } else {
             
             this.setState({
-                sl: ((this.state.sl + 1)*10) <= this.state.maxSl ? (this.state.sl+1) : this.state.sl
+                sl: ((this.state.sl + 1)*10) <= this.state.maxSl ? (this.state.sl+1) : this.state.sl,
+                slUser: ((this.state.slUser + 1)*10) <= this.state.data.length ? (this.state.sl+1) : this.state.slUser
             })
         }
         setTimeout(()=>{
