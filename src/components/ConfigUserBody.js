@@ -181,7 +181,7 @@ export default class ConfigUserBody extends Component {
                                                 <ul>
                                                     {
                                                         user.Blate ? user.Blate.map((plate, index) => {
-                                                            return (<li v-for="plate in user.Blate">{plate}</li>)
+                                                            return (<li>{plate}</li>)
                                                         }) : ''
                                                     }
                                                 </ul>

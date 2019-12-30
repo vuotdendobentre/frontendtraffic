@@ -98,7 +98,19 @@ class DataBody extends Component {
                         <td>{value.Blate}</td>
                         <td>{value.date.split('/').reverse().join('/')}</td>
                         <td>{value.time}</td>
-                        <td>{value.type ? 'Vượt đèn đỏ' : 'Không đội mũ bảo hiểm'}</td>
+                        <td style={{textAlign:"left"}}>
+                           
+                                {
+                                    value.type===1 ? <ul><li>Vượt đèn đỏ</li></ul> : 
+                                    
+                                    value.type===2 ? <ul><li>Không đội mũ bảo hiểm</li></ul> :  
+                                    <ul>
+                                        <li>Vượt đèn đỏ</li>
+                                        <li>Không đội mũ bảo hiểm</li>
+                                    </ul> 
+                                }
+                            
+                        </td>
                         <td>{this.onDataValid(value.user ? value.user.name : '')}</td>
                         <td>{this.onDataValid(value.user ? value.user.CMND : '')}</td>
                         <td>{this.onDataValid(value.user ? value.user.SDT : '')}</td>
