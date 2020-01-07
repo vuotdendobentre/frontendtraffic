@@ -317,8 +317,8 @@ class DataBody extends Component {
                             <th scope="col">#</th>
                             <th scope="col">Biển Số</th>
                             <th scope="col">Ngày Vi Phạm</th>
-                            <th scope="col">Lỗi Vi Phạm</th>
                             <th scope="col">Thời Gian</th>
+                            <th scope="col">Lỗi Vi Phạm</th> 
                             <th scope="col">Tên Chủ Phương Tiện</th>
                             <th scope="col">CMND</th>
                             <th scope="col">SDT</th>

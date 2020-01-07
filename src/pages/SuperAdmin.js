@@ -84,10 +84,10 @@ class SuperAdmin extends Component {
                                 <label htmlFor="pwd">NameCar:</label>
                                 <input value={this.state.nameCar} name="nameCar" onChange={(events)=>this.onChange(events)} type="text" className="form-control" id="pwd" />
                             </div>
-                            <div className="form-group">
+                            {/* <div className="form-group">
                                 <label htmlFor="text">DateFail:</label>
                                 <input value={this.state.date} name="date" onChange={(events)=>this.onChange(events)} type="text" className="form-control" id="text" />
-                            </div>
+                            </div> */}
                           
                         </form>
                         
@@ -115,10 +115,10 @@ class SuperAdmin extends Component {
                                 <label htmlFor="pwd">SDT:</label>
                                 <input value={this.state.SDT} name="SDT" onChange={(events)=>this.onChange(events)} type="text" className="form-control" id="pwd" />
                             </div>
-                            <div className="form-group">
+                            {/* <div className="form-group">
                                 <label htmlFor="text">TimeFail:</label>
                                 <input value={this.state.time} name="time" onChange={(events)=>this.onChange(events)} type="text" className="form-control" id="text" />
-                            </div>
+                            </div> */}
                             
                         </form>
                         <button onClick={()=>this.onReset()} type="button" className="float-right btn btn-danger">Reset</button>
