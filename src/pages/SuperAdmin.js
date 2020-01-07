@@ -64,24 +64,24 @@ class SuperAdmin extends Component {
                     <div id="info" className="col-sm-12 col-md-12 col-lg-5">
                         <form action="/action_page.php">
                             <div className="form-group">
-                                <label htmlFor="text">Plate:</label>
+                                <label htmlFor="text">Biển Số:</label>
                                 <input value={this.state.Blate} name="Blate" onChange={(events)=>this.onChange(events)} type="text" className="form-control" id="text" />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="pwd">Label:</label>
+                                <label htmlFor="pwd">Hãng Xe:</label>
                                 <input value={this.state.label} name="label" onChange={(events)=>this.onChange(events)}  type="text" className="form-control" id="pwd" />
                             </div>
     
                             <div className="form-group">
-                                <label htmlFor="text">Color:</label>
+                                <label htmlFor="text">Màu Sắc:</label>
                                 <input value={this.state.color} name="color" onChange={(events)=>this.onChange(events)} type="text" className="form-control" id="text" />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="pwd">Number:</label>
+                                <label htmlFor="pwd">Số Sườn:</label>
                                 <input value={this.state.number} name="number" onChange={(events)=>this.onChange(events)} type="text" className="form-control" id="pwd" />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="pwd">NameCar:</label>
+                                <label htmlFor="pwd">Tên Xe:</label>
                                 <input value={this.state.nameCar} name="nameCar" onChange={(events)=>this.onChange(events)} type="text" className="form-control" id="pwd" />
                             </div>
                             {/* <div className="form-group">
@@ -95,16 +95,16 @@ class SuperAdmin extends Component {
                     <div id="info" className="col-sm-12 col-md-12 col-lg-5">
                         <form action="/action_page.php">
                             <div className="form-group">
-                                <label htmlFor="text">Username:</label>
+                                <label htmlFor="text">Tên Tài Khoản:</label>
                                 <input value={this.state.username} name="username" onChange={(events)=>this.onChange(events)} type="text" className="form-control" id="text" />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="pwd">Password:</label>
+                                <label htmlFor="pwd">Mật Khẩu:</label>
                                 <input value={this.state.password} name="password" onChange={(events)=>this.onChange(events)} type="text" className="form-control" id="pwd" />
                             </div>
     
                             <div className="form-group">
-                                <label htmlFor="text">NameUser:</label>
+                                <label htmlFor="text">Họ Tên:</label>
                                 <input value={this.state.nameUser} name="nameUser" onChange={(events)=>this.onChange(events)} type="text" className="form-control" id="text" />
                             </div>
                             <div className="form-group">
