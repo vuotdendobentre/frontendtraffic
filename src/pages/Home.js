@@ -13,7 +13,7 @@ class Home extends Component {
 
   
 
-  //Điều hướng page
+  //Điều hướng page                      
   onRenderBody = ()=>{
     switch(this.props.pageAction){
       case 0 :
