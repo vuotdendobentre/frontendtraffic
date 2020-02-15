@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 
 class SideBarComponent extends Component {
+
+   
+
     render() {
         return (
 
@@ -33,7 +36,7 @@ class SideBarComponent extends Component {
                     <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div className="bg-white py-2 collapse-inner rounded">
 
-                            <a onClick={()=>this.props.pageAction(1)} className="collapse-item" >Xem Lỗi Cá Nhân</a>
+                            <a onClick={()=>this.props.pageAction(1)} id="renderTable" className="collapse-item" >Xem Lỗi Cá Nhân</a>
                             <a onClick={()=>this.props.pageAction(2)}className="collapse-item" >Biểu Đồ Cá Nhân</a>
                         </div>
                     </div>
@@ -71,4 +74,10 @@ const mapDispatchToProps = (dispatch,ownProps)=>{
     }
 }
 
-export default connect(null,mapDispatchToProps)(SideBarComponent);
+const mapStateToProps = state =>{
+    return {
+        isAuthenticate:state.isAuthenticate
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(SideBarComponent);

@@ -11,10 +11,10 @@ import { connect } from 'react-redux'
 
 class Home extends Component {
 
-  
-
+ 
   //Điều hướng page                      
   onRenderBody = ()=>{
+    
     switch(this.props.pageAction){
       case 0 :
         return <BodyComponent/>
@@ -27,6 +27,7 @@ class Home extends Component {
       // default :
       //   return <BodyComponent/>
     }
+    
   }
 
   
