@@ -1,6 +1,7 @@
 let redux = require('redux');
 let isAuthenticate = '';
 let username  = '';
+let name = '';
 let role  = '';
 let plate = [];
 let pageLogin=0;
@@ -10,6 +11,7 @@ let user =localStorage.getItem('userTraffic');
 if(user!=null){
     isAuthenticate = JSON.parse(user).isAuthenticate ? JSON.parse(user).isAuthenticate : '';
     username  = JSON.parse(user).isAuthenticate ? JSON.parse(user).username : '';
+    name  = JSON.parse(user).isAuthenticate ? JSON.parse(user).name : '';
     role  = JSON.parse(user).isAuthenticate ? JSON.parse(user).role : '';
     plate =JSON.parse(user).isAuthenticate ? JSON.parse(user).plate :  [];
     pageLogin =JSON.parse(user).isAuthenticate ? JSON.parse(user).pageLogin :  0;
@@ -17,10 +19,11 @@ if(user!=null){
 }
 
 let InitialState = { 
-    pageLogin ,
-    pageAction ,
+    pageLogin,
+    pageAction,
     isAuthenticate,
     username,
+    name,
     role,
     plate
   
@@ -29,11 +32,11 @@ let InitialState = {
 const allReducer = (state=InitialState,action)=>{
     switch(action.type){
         case  "IS_AUTHENTICATE" :
-            localStorage.setItem('userTraffic',JSON.stringify({isAuthenticate:true,username :action.username,role:action.role,plate:action.plate}))
-            return {...state,pageLogin:0,isAuthenticate:true,username :action.username,role:action.role,plate:action.plate};
+            localStorage.setItem('userTraffic',JSON.stringify({isAuthenticate:true,username :action.username,name:action.name,role:action.role,plate:action.plate}))
+            return {...state,pageLogin:0,isAuthenticate:true,username :action.username,name:action.name,role:action.role,plate:action.plate};
         case "IS_LOGOUT" :
-            localStorage.setItem('userTraffic',JSON.stringify({isAuthenticate : false,username : '',role:'',plate:[]}))    
-            return {pageLogin : 0,pageAction : 0,isAuthenticate : '',username : '',role:'',plate:[]};
+            localStorage.setItem('userTraffic',JSON.stringify({isAuthenticate : false,username : '',name:'',role:'',plate:[]}))    
+            return {pageLogin : 1,pageAction : 0,isAuthenticate : '',username : '',name:'',role:'',plate:[]};
         case "PAGE_ACTION":
             localStorage.setItem('userTraffic',JSON.stringify({...state,pageAction:action.pageAction,pageLogin:((state.isAuthenticate===undefined || state.isAuthenticate ==='')&&action.pageAction!==0) ? 1 : 0}))
             return {...state,pageAction:action.pageAction,pageLogin:((state.isAuthenticate===undefined || state.isAuthenticate ==='')&&action.pageAction!==0) ? 1 : 0} 

@@ -5,8 +5,10 @@ import BodyComponent from '../components/BodyComponent'
 import BodyUserComponent from '../components/BodyUserComponent'
 import FooterComponent from '../components/FooterComponent'
 import LogoutAlertComponent from '../components/LogoutAlertComponent'
-import BodyTableComponent from '../components/BodyTableComponent'
-import BodyMangerAccountComponent from '../components/BodyMangerAccountComponent'
+import BodyTableAdminComponent from '../components/BodyTableAdminComponent'
+import BodyTableUsercomponent from '../components/BodyTableUserComponent'
+import BodyMangerAccountAdminComponent from '../components/BodyMangerAccountAdminComponent'
+import BodyMangerAccountUserComponent from '../components/BodyMangerAccountUserComponent'
 import { connect } from 'react-redux'
 
 class Home extends Component {
@@ -19,13 +21,15 @@ class Home extends Component {
       case 0 :
         return <BodyComponent/>
       case 1 :
-        return <BodyTableComponent/>
+        return this.props.role === 0 ? <BodyTableAdminComponent/> : <BodyTableUsercomponent/>
       case 2 : 
         return <BodyUserComponent/>
       case 3 : 
-        return <BodyMangerAccountComponent/>
-      // default :
-      //   return <BodyComponent/>
+        return <BodyMangerAccountUserComponent/>
+      case 4 :
+        return <BodyMangerAccountAdminComponent/>
+      default :
+        return <BodyComponent/>
     }
     
   }
@@ -57,7 +61,8 @@ class Home extends Component {
 const mapStateToProps = state =>{
   return {
     pageAction : state.pageAction,
-    isAuthenticate : state.isAuthenticate
+    isAuthenticate : state.isAuthenticate,
+    role : state.role
   }
 }
 

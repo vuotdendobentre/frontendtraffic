@@ -7,18 +7,17 @@ import { connect } from 'react-redux'
 class NavigationComponent extends Component {
 
   onRenderAvatar = () =>{
+   
     switch(this.props.isAuthenticate){
-      case undefined : 
-        return <ButtonLoginComponent/>
-      case "": 
-        return <ButtonLoginComponent/>
-      default : 
+      case true : 
         return <AvatarUserComponent/>
+      default : 
+        return <ButtonLoginComponent/>
     }
   }
 
   render() {
-    console.log(this.props.isAuthenticate)
+  
 
     return (
       <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
