@@ -6,7 +6,7 @@ class ButtonLoginComponent extends Component {
        
         return (
             <a onClick={()=>this.props.pageLogin(1)} className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                          <i className="fas fa-sign-in-alt fa-sm text-white-50" /> Login</a>
+                          <i className="fas fa-sign-in-alt fa-sm text-white-50" /> Đăng nhập</a>
         )
     }
 }

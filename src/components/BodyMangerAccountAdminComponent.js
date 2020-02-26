@@ -144,7 +144,7 @@ class BodyMangerAccountAdminComponent extends Component {
   componentWillMount() {
     callApi('users', 'GET', {})
       .then(res => {
-        console.log(res.data)
+       
         this.setState({
           data: {
             columns: [...data1.columns],
@@ -162,7 +162,7 @@ class BodyMangerAccountAdminComponent extends Component {
 
 
   getDataFromChild = (message)=>{
-    console.log(message.data)
+  
     if(message.addNew){
       this.setState({
         data:{
@@ -182,7 +182,7 @@ class BodyMangerAccountAdminComponent extends Component {
           rows:[...this.state.data.rows.fill(newRow,index,index+1)]
         }
       })
-      console.log(this.state.data.rows)
+     
 
 
     }
@@ -233,7 +233,7 @@ class BodyMangerAccountAdminComponent extends Component {
 
     return (
 
-      <div className="container-fluid">
+      <div className="container-fluid bg-gray-500">
 
         {/* Page Heading */}
         <h1 className="h3 mb-2 text-gray-800">Tài khoản</h1>

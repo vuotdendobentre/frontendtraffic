@@ -26,7 +26,7 @@ class Login extends Component {
                             usernameState:-1,
                             passwordState:-1
                         })
-                        console.log(res.data)
+                       
                         this.props.onLogin(this.state.username, parseInt(res.data.role), res.data.plate,res.data.name)
     
                     }else{
@@ -52,7 +52,7 @@ class Login extends Component {
 
     onFail = ()=>{
         return (
-            <a    className="btn btn-danger btn-circle btn-lg">
+            <a    className="btn btn-danger btn-circle btn-lg text-white">
                 <i className="fas fa-times"></i>
             </a>
         )
@@ -60,7 +60,7 @@ class Login extends Component {
     
     onSucess = () =>{
        return(
-        <a    className="btn btn-success btn-circle btn-lg">
+        <a    className="btn btn-success btn-circle btn-lg text-white">
              <i className="fas fa-check"></i>
         </a>
        )
@@ -68,7 +68,7 @@ class Login extends Component {
 
     onLoginFail = () =>{
         return (
-            <a   onClick={()=>this.setState({loginState:0})} className="btn btn-danger btn-icon-split">
+            <a   onClick={()=>this.setState({loginState:0})} className="btn btn-danger btn-icon-split text-white">
             <span className="icon text-white-50">
               <i className="fas fa-times" />
             </span>
@@ -85,7 +85,7 @@ class Login extends Component {
  
     render() {
         return (
-            <div className="container bg-gradient-primary">
+            <div className="container bg-primary">
                 <div className="row justify-content-center">
                     <div className="col-xl-10 col-lg-12 col-md-9">
                         <div className="card o-hidden border-0 shadow-lg my-5">
@@ -119,21 +119,21 @@ class Login extends Component {
                                                         <label className="custom-control-label" htmlFor="customCheck">Ghi nhớ</label>
                                                     </div>
                                                 </div> */}
-                                                <a   onClick={() => this.onLogin()} className="btn btn-primary btn-user btn-block">
+                                                <a   onClick={() => this.onLogin()} className="btn btn-primary btn-user text-white btn-block">
                                                     Login
                                                 </a>
                                                 <hr />
-                                                <a   onClick={() => this.props.pageLogin(0), () => this.props.pageAction(0)} className="btn btn-google btn-user btn-block">
+                                                <a   onClick={() => this.props.pageLogin(0), () => this.props.pageAction(0)} className="btn btn-success btn-user btn-block text-white">
                                                     <i className="fas fa-arrow-left text-white-50" /> Quay Về Trang Chủ
                                                 </a>
                                             </form>
                                             <hr />
-                                            <div className="text-center">
+                                            {/* <div className="text-center">
                                                 <a   className="small" >Forgot Password?</a>
                                             </div>
                                             <div className="text-center">
                                                 <a   className="small" >Create an Account!</a>
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </div>
 

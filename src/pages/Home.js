@@ -42,7 +42,7 @@ class Home extends Component {
         <div id="wrapper">
           <SideBarComponent />
           <div id="content-wrapper" className="d-flex flex-column">
-            <div id="content">
+            <div id="content" className="bg-gray-500">
               <NavigationComponent />
               {this.onRenderBody()}
             </div>

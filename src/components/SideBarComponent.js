@@ -54,7 +54,7 @@ class SideBarComponent extends Component {
 
                             {this.props.role===0 ? <a href="# " onClick={()=>this.props.pageAction(4)} className="collapse-item" >Danh Sách Tài Khoản</a> : ''}
                             <a href="# " onClick={()=>this.props.pageAction(3)} className="collapse-item" >Thông tin cá nhân</a>
-                            <a href="# " className="collapse-item" data-target="#logoutModal" data-toggle="modal" >Đăng Xuất</a>
+                            {this.props.isAuthenticate?<a href="# " className="collapse-item" data-target="#logoutModal" data-toggle="modal" >Đăng Xuất</a>:''}
 
                         </div>
                     </div>

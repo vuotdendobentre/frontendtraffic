@@ -45,7 +45,7 @@ class ProFileFormComponent extends Component {
         event.preventDefault();
         event.target.className += " was-validated";
         let {addNew, username, password, name, CMND, SDT, Plate } = this.state
-        console.log(username)
+       
         if(username!=="" && password!=="" && name!=="" && CMND!=="" && SDT!=="" && Plate!==""){
             Plate=Plate.split(',')
             if(addNew){
@@ -71,7 +71,7 @@ class ProFileFormComponent extends Component {
                 checkUsername:false
             })
         }
-        console.log(this.state)
+     
         this.setState({ [event.target.name]: event.target.value });
     };
 

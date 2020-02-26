@@ -15,7 +15,7 @@ class BodyMangerAccountUserComponent extends Component {
 
     componentWillMount(){
         callApi(`users/${this.props.username}`,'GET',{}).then(res=>{
-            console.log(res.data[0])
+         
             this.setState({
                 data : res.data[0],
                 getData:true
@@ -26,7 +26,7 @@ class BodyMangerAccountUserComponent extends Component {
 
     render(){
         return (
-            <div className="container-fluid">
+            <div className="container-fluid bg-gray-500">
 
             {/* Page Heading */}
             <h1 className="h3 mb-2 text-gray-800">Thông Tin cá nhân</h1>

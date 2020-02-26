@@ -50,7 +50,7 @@ const allReducer = (state=InitialState,action)=>{
 }
 
 let store = redux.createStore(allReducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
-store.subscribe(function(){
-    console.log(JSON.stringify(store.getState()));
-})
+// // store.subscribe(function(){
+// //     console.log(JSON.stringify(store.getState()));
+// // })
 export default store;

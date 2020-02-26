@@ -172,7 +172,7 @@ class BodyTableAdminComponent extends Component {
 
     return (
 
-      <div className="container-fluid">
+      <div className="container-fluid bg-gray-500">
 
         {/* Page Heading */}
         <h1 className="h3 mb-2 text-gray-800">Lỗi vi phạm </h1>

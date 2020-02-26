@@ -1,13 +1,42 @@
 import React, { Component } from 'react'
+import callApi from '../apicall/apiCaller'
+import PieChartBodyComponent from './PieChartBodyComponent'
 
 class BodyComponent extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      type0: 0,
+      type1: 0,
+      type2: 0,
+      statusData: false
+    }
+  }
+
+  componentWillMount() {
+    callApi(`fails/count`, 'GET', {}).then(res => {
+      try {
+        if (res.data) {
+          let { type0, type1, type2 } = res.data
+          console.log(res.data)
+          this.setState({
+            type0, type1, type2, statusData: true
+          })
+        }
+      } catch{ }
+    })
+
+  }
+
   render() {
+    let { type0, type1, type2 } = this.state
     return (
-      <div className="container-fluid">
+      <div className="container-fluid bg-gray-500">
         {/* Page Heading */}
         <div className="d-sm-flex align-items-center justify-content-between mb-4">
           <h1 className="h3 mb-0 text-gray-800">Thống kê </h1>
-          {/* <a href="#" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i className="fas fa-download fa-sm text-white-50" /> Generate Report</a> */}
+          {/* <a href="# "href="#" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i className="fas fa-download fa-sm text-white-50" /> Generate Report</a> */}
         </div>
         {/* Content Row */}
         <div className="row">
@@ -15,13 +44,13 @@ class BodyComponent extends Component {
           <div className="col-xl-3 col-md-6 mb-4">
             <div className="card border-left-primary shadow h-100 py-2">
               <div className="card-body">
-                <div className="row no-gutters align-items-center">
+                <div className="row no-gutters align-items-center text-center">
                   <div className="col mr-2">
-                    <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Monthly)</div>
-                    <div className="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                    <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">Vượt đèn đỏ</div>
+                    <div className="h5 mb-0 font-weight-bold text-gray-800">{type1}</div>
                   </div>
                   <div className="col-auto">
-                    <i className="fas fa-calendar fa-2x text-gray-300" />
+                    <i className="fas fa-traffic-light fa-2x text-gray-300" />
                   </div>
                 </div>
               </div>
@@ -31,13 +60,13 @@ class BodyComponent extends Component {
           <div className="col-xl-3 col-md-6 mb-4">
             <div className="card border-left-success shadow h-100 py-2">
               <div className="card-body">
-                <div className="row no-gutters align-items-center">
+                <div className="row no-gutters align-items-center text-center">
                   <div className="col mr-2">
-                    <div className="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings (Annual)</div>
-                    <div className="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                    <div className="text-xs font-weight-bold text-success text-uppercase mb-1">Không đội mũ bảo hiêm</div>
+                    <div className="h5 mb-0 font-weight-bold text-gray-800">{type2}</div>
                   </div>
                   <div className="col-auto">
-                    <i className="fas fa-dollar-sign fa-2x text-gray-300" />
+                    <i className="fas fa-hard-hat fa-2x text-gray-300" />
                   </div>
                 </div>
               </div>
@@ -47,10 +76,11 @@ class BodyComponent extends Component {
           <div className="col-xl-3 col-md-6 mb-4">
             <div className="card border-left-info shadow h-100 py-2">
               <div className="card-body">
-                <div className="row no-gutters align-items-center">
+                <div className="row no-gutters align-items-center text-center">
                   <div className="col mr-2">
-                    <div className="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks</div>
-                    <div className="row no-gutters align-items-center">
+                    <div className="text-xs font-weight-bold text-info text-uppercase mb-1">Vi phạm cả 2 lỗi</div>
+                    <div className="h5 mb-0 font-weight-bold text-gray-800">{type0}</div>
+                    {/* <div className="row no-gutters align-items-center">
                       <div className="col-auto">
                         <div className="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
                       </div>
@@ -59,7 +89,7 @@ class BodyComponent extends Component {
                           <div className="progress-bar bg-info" role="progressbar" style={{ width: '50%' }} aria-valuenow={50} aria-valuemin={0} aria-valuemax={100} />
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                   <div className="col-auto">
                     <i className="fas fa-clipboard-list fa-2x text-gray-300" />
@@ -72,13 +102,13 @@ class BodyComponent extends Component {
           <div className="col-xl-3 col-md-6 mb-4">
             <div className="card border-left-warning shadow h-100 py-2">
               <div className="card-body">
-                <div className="row no-gutters align-items-center">
+                <div className="row no-gutters align-items-center text-center">
                   <div className="col mr-2">
-                    <div className="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Requests</div>
-                    <div className="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                    <div className="text-xs font-weight-bold text-warning text-uppercase mb-1">Tổng thống kê</div>
+                    <div className="h5 mb-0 font-weight-bold text-gray-800">{type0 + type1 + type2}</div>
                   </div>
                   <div className="col-auto">
-                    <i className="fas fa-comments fa-2x text-gray-300" />
+                    <i className="fas fa-motorcycle fa-2x text-gray-300" />
                   </div>
                 </div>
               </div>
@@ -92,10 +122,10 @@ class BodyComponent extends Component {
             {/* Project Card Example */}
             <div className="card shadow mb-4">
               <div className="card-header py-3">
-                <h6 className="m-0 font-weight-bold text-primary">Projects</h6>
+                <h6 className="m-0 font-weight-bold text-primary">Biểu đồ tròn</h6>
               </div>
               <div className="card-body">
-                <h4 className="small font-weight-bold">Server Migration <span className="float-right">20%</span></h4>
+                {/* <h4 className="small font-weight-bold">Server Migration <span className="float-right">20%</span></h4>
                 <div className="progress mb-4">
                   <div className="progress-bar bg-danger" role="progressbar" style={{ width: '20%' }} aria-valuenow={20} aria-valuemin={0} aria-valuemax={100} />
                 </div>
@@ -114,7 +144,8 @@ class BodyComponent extends Component {
                 <h4 className="small font-weight-bold">Account Setup <span className="float-right">Complete!</span></h4>
                 <div className="progress">
                   <div className="progress-bar bg-success" role="progressbar" style={{ width: '100%' }} aria-valuenow={100} aria-valuemin={0} aria-valuemax={100} />
-                </div>
+                </div> */}
+                {this.state.statusData ? <PieChartBodyComponent data={{ type0, type1, type2 }} /> : ''}
               </div>
             </div>
             {/* Approach */}
@@ -140,8 +171,8 @@ class BodyComponent extends Component {
                 <div className="text-center">
                   <img className="img-fluid px-3 px-sm-4 mt-3 mb-4" style={{ width: '25rem' }} src="img/undraw_posting_photo.svg" alt="" />
                 </div>
-                <p>Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow">unDraw</a>, a constantly updated collection of beautiful svg images that you can use completely free and without attribution!</p>
-                <a target="_blank" rel="nofollow" >Browse Illustrations on unDraw →</a>
+                <p>Add some quality, svg illustrations to your project courtesy of <a href="# " target="_blank" rel="nofollow">unDraw</a>, a constantly updated collection of beautiful svg images that you can use completely free and without attribution!</p>
+                <a href="# " target="_blank" rel="nofollow" >Browse Illustrations on unDraw →</a>
               </div>
             </div>
             {/* Approach */}

@@ -42,14 +42,14 @@ class ProfileFormUserComponent extends Component {
         event.preventDefault();
         event.target.className += " was-validated";
         let { username, password, name, CMND, SDT, Plate,rule } = this.state
-        console.log(username)
+
         if(username!=="" && password!=="" && name!=="" && CMND!=="" && SDT!==""){
             Plate=Plate.split(',')
 
             callApi(`users/${username}`,'PUT',{
                 username,password,name,CMND,SDT,Plate,rule
             }).then(res=>{
-                console.log(res.data)
+                this.props.onLogin(username,parseInt(rule),Plate,name)
                
             })  
             

@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 class FooterComponent extends Component {
   render() {
     return (
-      <footer className="sticky-footer bg-white">
+      <footer className="sticky-footer bg-gray-500">
         <div className="container my-auto">
           <div className="copyright text-center my-auto">
             <span>Ứng dụng xem lỗi</span>
