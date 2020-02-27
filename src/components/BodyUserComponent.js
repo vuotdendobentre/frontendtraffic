@@ -15,15 +15,16 @@ class BodyUserComponent extends Component {
         }
     }
 
-    componentWillMount() {
-        this.props.Plate.map((el,index) => {
-            callApi(`fails/count/${el}`, 'GET', {}).then(res => {
+    componentDidMount() {
+        this.props.Plate.map((value,index) => {
+        
+            callApi(`fails/count/${value}`, 'GET', {}).then(res => {
                 if (res.data) {
+                    console.log(res.data)
                     let { type0, type1, type2 } = res.data
                     type0 += this.state.type0
                     type1 += this.state.type1
                     type2 += this.state.type2
-                    console.log(res.data)
                     this.setState({
                         type0,
                         type1,
@@ -32,12 +33,15 @@ class BodyUserComponent extends Component {
                     })
                 }
             })
+           return true
+           
         })
 
     }
 
     render() {
         let { type0, type1, type2 } = this.state
+        console.log(this.state.statusData)
         return (
             <div className="container-fluid bg-gray-500">
 
@@ -131,26 +135,7 @@ class BodyUserComponent extends Component {
                                 <h6 className="m-0 font-weight-bold text-primary">Biểu đồ tròn</h6>
                             </div>
                             <div className="card-body">
-                                {/* <h4 className="small font-weight-bold">Server Migration <span className="float-right">20%</span></h4>
-                                <div className="progress mb-4">
-                                    <div className="progress-bar bg-danger" role="progressbar" style={{ width: '20%' }} aria-valuenow={20} aria-valuemin={0} aria-valuemax={100} />
-                                </div>
-                                <h4 className="small font-weight-bold">Sales Tracking <span className="float-right">40%</span></h4>
-                                <div className="progress mb-4">
-                                    <div className="progress-bar bg-warning" role="progressbar" style={{ width: '40%' }} aria-valuenow={40} aria-valuemin={0} aria-valuemax={100} />
-                                </div>
-                                <h4 className="small font-weight-bold">Customer Database <span className="float-right">60%</span></h4>
-                                <div className="progress mb-4">
-                                    <div className="progress-bar" role="progressbar" style={{ width: '60%' }} aria-valuenow={60} aria-valuemin={0} aria-valuemax={100} />
-                                </div>
-                                <h4 className="small font-weight-bold">Payout Details <span className="float-right">80%</span></h4>
-                                <div className="progress mb-4">
-                                    <div className="progress-bar bg-info" role="progressbar" style={{ width: '80%' }} aria-valuenow={80} aria-valuemin={0} aria-valuemax={100} />
-                                </div>
-                                <h4 className="small font-weight-bold">Account Setup <span className="float-right">Complete!</span></h4>
-                                <div className="progress">
-                                    <div className="progress-bar bg-success" role="progressbar" style={{ width: '100%' }} aria-valuenow={100} aria-valuemin={0} aria-valuemax={100} />
-                                </div> */}
+
                                 {this.state.statusData ?  <PieChartBodyComponent data={{type0,type1,type2}}/> : ''}
                             </div>
                         </div>

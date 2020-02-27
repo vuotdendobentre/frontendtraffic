@@ -35,7 +35,7 @@ class BodyComponent extends Component {
       <div className="container-fluid bg-gray-500">
         {/* Page Heading */}
         <div className="d-sm-flex align-items-center justify-content-between mb-4">
-          <h1 className="h3 mb-0 text-gray-800">Thống kê </h1>
+          <h1 className="h3 mb-0 text-gray-800">Thông tin và thống kê</h1>
           {/* <a href="# "href="#" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i className="fas fa-download fa-sm text-white-50" /> Generate Report</a> */}
         </div>
         {/* Content Row */}
@@ -146,49 +146,62 @@ class BodyComponent extends Component {
                   <div className="progress-bar bg-success" role="progressbar" style={{ width: '100%' }} aria-valuenow={100} aria-valuemin={0} aria-valuemax={100} />
                 </div> */}
                 {this.state.statusData ? <PieChartBodyComponent data={{ type0, type1, type2 }} /> : ''}
+                <p>
+                  Biểu đồ cho thấy thông kê các lỗi vượt đèn đỏ và không đội mũ bảo hiểm mà hệ thống đã ghi nhận được trong thời gian qua bao gồm <b>vượt đèn đỏ</b> là {Math.ceil((type1*100)/(type0+type1+type2))}%, <b>không đội mũ bảo hiểm </b>là {Math.ceil((type2*100)/(type0+type1+type2))}% và <b>vi phạm cùng lúc cả 2 lỗi</b> là {100 - Math.ceil((type1*100)/(type0+type1+type2)) -Math.ceil((type2*100)/(type0+type1+type2))}%
+                  </p>
               </div>
             </div>
             {/* Approach */}
+            
             <div className="card shadow mb-4">
               <div className="card-header py-3">
-                <h6 className="m-0 font-weight-bold text-primary">Development Approach</h6>
+                <a href="http://baodongkhoi.vn/an-ninh/an-toan-giao-thong" target="_blank" className="m-0 font-weight-bold text-primary">An toàn giao thông báo <b>Đồng Khởi</b></a>
               </div>
               <div className="card-body">
+              <div className="text-center">
+                  <a href="http://baodongkhoi.vn/an-ninh/an-toan-giao-thong" target="_blank" className="m-0 font-weight-bold text-primary">
+                  <img className="img-fluid px-3 px-sm-4 mt-3 mb-4" style={{ width: '50rem' }} src="http://image.baodongkhoi.vn/fckeditor/upload/2020/20200225/images/CCB.jpg" alt="" />
+                  </a>
+                </div>
                 <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce CSS bloat and poor page performance. Custom CSS classes are used to create custom components and custom utility classes.</p>
-                <p className="mb-0">Before working with this theme, you should become familiar with the Bootstrap framework, especially the utility classes.</p>
-                <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce CSS bloat and poor page performance. Custom CSS classes are used to create custom components and custom utility classes.</p>
-
+                <a href="http://baodongkhoi.vn/an-ninh/an-toan-giao-thong"  target="_blank"  rel="oopener noreferrer" ><u>Nhấp để đi đến trang →</u></a>
               </div>
+              
             </div>
           </div>
           <div className="col-lg-6 mb-4">
             {/* Illustrations */}
             <div className="card shadow mb-4">
               <div className="card-header py-3">
-                <h6 className="m-0 font-weight-bold text-primary">Illustrations</h6>
+                <a href="https://luatvietnam.vn/tin-van-ban-moi/vuot-den-do-bi-phat-bao-nhieu-2020-186-23421-article.html" target="_blank"  rel="oopener noreferrer" className="m-0 font-weight-bold text-primary">Vượt đèn đỏ phạt bao nhiêu tiền ?</a>
               </div>
               <div className="card-body">
                 <div className="text-center">
-                  <img className="img-fluid px-3 px-sm-4 mt-3 mb-4" style={{ width: '25rem' }} src="img/undraw_posting_photo.svg" alt="" />
+                  <a href="https://luatvietnam.vn/tin-van-ban-moi/vuot-den-do-bi-phat-bao-nhieu-2020-186-23421-article.html" target="_blank"  rel="oopener noreferrer" className="m-0 font-weight-bold text-primary">
+                  <img  target="_blank"  rel="oopener noreferrer" className="img-fluid px-3 px-sm-4 mt-3 mb-4" style={{ width: '50rem' }} src="https://vnpanda.com/wp-content/uploads/2019/04/vuot-den-do-phat-bao-nhieu-tien.jpg" alt="" />
+                  </a>
                 </div>
-                <p>Add some quality, svg illustrations to your project courtesy of <a href="# " target="_blank" rel="nofollow">unDraw</a>, a constantly updated collection of beautiful svg images that you can use completely free and without attribution!</p>
-                <a href="# " target="_blank" rel="nofollow" >Browse Illustrations on unDraw →</a>
+                <p><b>Vượt đèn đỏ là một trong những lỗi thường gặp khi tham gia giao thông. Ngày 30/12/2019, Chính phủ đã ban hành Nghị định số 100, trong đó tăng mạnh mức phạt với hành vi này</b></p>
+                <a href="https://luatvietnam.vn/tin-van-ban-moi/vuot-den-do-bi-phat-bao-nhieu-2020-186-23421-article.html"  target="_blank"  rel="oopener noreferrer" ><u>Nhấp để đi đến trang →</u></a>
               </div>
             </div>
             {/* Approach */}
             <div className="card shadow mb-4">
               <div className="card-header py-3">
-                <h6 className="m-0 font-weight-bold text-primary">Development Approach</h6>
+              <a href="https://www.baogiaothong.vn/ben-tre-tag" target="_blank"  rel="oopener noreferrer" className="m-0 font-weight-bold text-primary">Tin tức giao thông Bến Tre</a>
               </div>
               <div className="card-body">
+                <a href="https://www.baogiaothong.vn/ben-tre-tag" target="_blank"  rel="oopener noreferrer" className="m-0 font-weight-bold text-primary">
+                  <img  target="_blank"  rel="oopener noreferrer" className="img-fluid px-3 px-sm-4 mt-3 mb-4" style={{ width: '50rem' }} src="https://cdn.24h.com.vn/upload/2-2019/images/2019-04-23/Phan-cam-khi-doan-xe-tuyen-truyen-an-toan-giao-thong-lai-vuot-den-do-vuot-1556009264-415-width540height304.jpg" alt="" />
+                </a>
                 <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce CSS bloat and poor page performance. Custom CSS classes are used to create custom components and custom utility classes.</p>
-                <p className="mb-0">Before working with this theme, you should become familiar with the Bootstrap framework, especially the utility classes.</p>
+                <a href="https://www.baogiaothong.vn/ben-tre-tag"  target="_blank"  rel="oopener noreferrer" ><u>Nhấp để đi đến trang →</u></a>
               </div>
             </div>
           </div>
         </div>
       </div>
-
+      
 
     )
   }
