@@ -9,6 +9,7 @@ import BodyTableAdminComponent from '../components/BodyTableAdminComponent'
 import BodyTableUsercomponent from '../components/BodyTableUserComponent'
 import BodyMangerAccountAdminComponent from '../components/BodyMangerAccountAdminComponent'
 import BodyMangerAccountUserComponent from '../components/BodyMangerAccountUserComponent'
+import BodyManagerCarAdminComponent from '../components/BodyManagerCarAdminComponent'
 import { connect } from 'react-redux'
 
 class Home extends Component {
@@ -28,6 +29,8 @@ class Home extends Component {
         return <BodyMangerAccountUserComponent/>
       case 4 :
         return <BodyMangerAccountAdminComponent/>
+      case 5 : 
+        return <BodyManagerCarAdminComponent/>
       default :
         return <BodyComponent/>
     }

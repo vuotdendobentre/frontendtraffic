@@ -52,7 +52,8 @@ class SideBarComponent extends Component {
                     <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                         <div className="bg-white py-2 collapse-inner rounded">
 
-                            {this.props.role===0 ? <a href="# " onClick={()=>this.props.pageAction(4)} className="collapse-item" >Danh Sách Tài Khoản</a> : ''}
+                            {this.props.role===0 ? <a href="# " onClick={()=>this.props.pageAction(4)} className="collapse-item" >Danh sách tài Khoản</a> : ''}
+                            {this.props.role===0 ? <a href="# " onClick={()=>this.props.pageAction(5)} className="collapse-item" >Danh sách phương tiện</a> : ''}
                             <a href="# " onClick={()=>this.props.pageAction(3)} className="collapse-item" >Thông tin cá nhân</a>
                             {this.props.isAuthenticate?<a href="# " className="collapse-item" data-target="#logoutModal" data-toggle="modal" >Đăng Xuất</a>:''}
 

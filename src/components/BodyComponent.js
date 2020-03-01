@@ -163,7 +163,8 @@ class BodyComponent extends Component {
                   <img className="img-fluid px-3 px-sm-4 mt-3 mb-4" style={{ width: '50rem' }} src="http://image.baodongkhoi.vn/fckeditor/upload/2020/20200225/images/CCB.jpg" alt="" />
                   </a>
                 </div>
-                <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce CSS bloat and poor page performance. Custom CSS classes are used to create custom components and custom utility classes.</p>
+                <p>Thời gian qua, tai nạn giao thông (TNGT) vẫn luôn là vấn đề nhức nhối của toàn xã hội. Công tác đảm bảo trật tự an toàn giao thông (ATGT) luôn được các ngành, đoàn thể, chính quyền các địa phương quan tâm thực hiện liên tục.</p>
+                
                 <a href="http://baodongkhoi.vn/an-ninh/an-toan-giao-thong"  target="_blank"  rel="oopener noreferrer" ><u>Nhấp để đi đến trang →</u></a>
               </div>
               
@@ -194,7 +195,7 @@ class BodyComponent extends Component {
                 <a href="https://www.baogiaothong.vn/ben-tre-tag" target="_blank"  rel="oopener noreferrer" className="m-0 font-weight-bold text-primary">
                   <img  target="_blank"  rel="oopener noreferrer" className="img-fluid px-3 px-sm-4 mt-3 mb-4" style={{ width: '50rem' }} src="https://cdn.24h.com.vn/upload/2-2019/images/2019-04-23/Phan-cam-khi-doan-xe-tuyen-truyen-an-toan-giao-thong-lai-vuot-den-do-vuot-1556009264-415-width540height304.jpg" alt="" />
                 </a>
-                <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce CSS bloat and poor page performance. Custom CSS classes are used to create custom components and custom utility classes.</p>
+                <p>Tại tỉnh Bến Tre, từ đầu năm 2019 đến nay, tình hình trật tự ATGT có sự chuyển biến tích cực, TNGT được kéo giảm trên cả 3 tiêu chí. So với cùng kỳ năm 2018, số vụ TNGT giảm 18,3%, số người chết giảm 29,8% và số người bị thương giảm 13,7%.</p>
                 <a href="https://www.baogiaothong.vn/ben-tre-tag"  target="_blank"  rel="oopener noreferrer" ><u>Nhấp để đi đến trang →</u></a>
               </div>
             </div>
